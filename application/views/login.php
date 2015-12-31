@@ -40,9 +40,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<!-- then load the internal sources second -->
+	<script type="text/javascript" src="js/wrappers/jqueryUIWrapper.js"></script>
 	<script type="text/javascript" src="js/common/buttonManager.js"></script>
 	<script type="text/javascript" src="js/login/loginScripts.js"></script>
-	<script type="text/javascript" src="js/wrappers/jqueryUIWrapper.js"></script>
 	<!-- load the driver for execution -->
 	<script type="text/javascript" src="js/login/loginDriver.js"></script>
 </html>

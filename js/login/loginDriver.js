@@ -8,7 +8,6 @@ $(document).ready()
 	* One off login button
 	*/
 	$('#inputDiv').children().first().append('<input type="button" id="loginButton" value="Get Gamertag!" class="btn">');
-	$('#loginButton').removeClass('disabled');
 	/*
 	* Set the hover events for button
 	*/
