@@ -6,7 +6,7 @@ function checkLogin()
 	/*
 	* Consult the login driver for authentication
 	*/
-	$.post(window.location.href+"/index.php/login/index",
+	$.post(window.location.href+"/login/index",
 	{
 	  'username': $('#username').val(),
 	  'password': $('#password').val()
