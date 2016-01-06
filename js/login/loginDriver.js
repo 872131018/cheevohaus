@@ -5,10 +5,6 @@ $(document).ready()
 	*/
 	jqueryUIWrapper({'action': 'fadeToGreen'}, {'element': '.container'});
 	/*
-	* One off login button
-	*/
-	$('#inputDiv').children().first().append('<input type="button" id="loginButton" value="Get Gamertag!" class="btn">');
-	/*
 	* Set the hover events for button
 	*/
 	buttonManager({'action': 'setHoverListener'}, {'id': 'loginButton'});

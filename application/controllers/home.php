@@ -1,43 +1,45 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller
+class Home extends CI_Controller
 {
 	public function index()
 	{
     /*
-    * Load the models used during the login process
+    * Load the models used in the home screen
     */
-    $this->load->model('user_model');
+    $this->load->model('validGamertag_model');
 		/*
-    *The factory is where you put the models to work and manages them
-    */
-    $this->load->library("user_factory");
-    /*
-    * Get username and password from $_POST
-    */
-    $username = $this->input->post("username");
-    $password = $this->input->post("password");
-		/*
-		* Send results to factory for processing
+		* Load the curl connector class
 		*/
-		$result = $this->user_factory->checkUser($username, $password);
-		switch($result)
-		{
-			/*
-			* Username and password are correct load homepage view
-			*/
-			case 'success':
-				$this->load->view('home');
-				break;
-			case 'failure':
-				echo 'login_failure';
-				break;
-			case 'empty':
-				echo 'no_results';
-				break;
-
-		}
+		$this->load->library("curl_factory");
+    /*
+    * Get gamertag passed from $_POST
+    */
+    $gamertag = $this->input->post("gamertag");
+    /*
+    * Query database for  a single gamertag and prepare result object
+    */
+    $this->db->select('xuid, gamertag');
+    $result = $this->db->get_where('validGamertags', array('gamertag' => $gamertag), 1)->result();
+		//$result = $result[0];
+    if(!empty($result))
+    {
+      /*
+      * Gamertag is valid and is in database
+      */
+			//do something here
+    }
+    else
+    {
+      /*
+      * Make a call to microsoft to see if its a valid gamertag
+      */
+			$this->curl_factory->setParameters('https://xboxapi.com/v2/xuid/'.$gamertag);
+			$curlResponse =  $this->curl_factory->makeRequest();
+			var_dump($curlResponse); die;
+			$this->curl_factory->closeConnection();
+    }
 	}
 
   public function addUser()

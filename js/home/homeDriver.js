@@ -2,13 +2,10 @@ $(document).ready()
 {
 	//set up the fade in background
 	jqueryUIWrapper({'action': 'fadeToGreen'}, {'element': '.container'});
-
-	//one off login button
-	$('#inputDiv').children().first().append('<input type="button" id="loginButton" value="Get Gamertag!" class="btn">');
-	$('#loginButton').removeClass('disabled');
-
-	//define the accordion in id: value pairs
-	var gamerAccordion = 
+	/*
+	* Define the buttons that will be in accordion
+	*/
+	var gamerAccordion =
 	{
 		'profile': 'Profile',
 		'gamercard': 'Gamercard',

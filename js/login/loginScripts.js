@@ -1,71 +1,60 @@
-/*
-* Send tbe login to the server to validation
-*/
 function checkLogin()
 {
 	/*
-	* Consult the login driver for authentication
+	* Send the login to the server to validation
 	*/
-	$.post(window.location.href+"index.php/login/index",
+	$.post(window.location.href+"/login/index", $("form").serialize(),
+	function(response, status)
 	{
-	  'username': $('#username').val(),
-	  'password': $('#password').val()
-	},
-	function(response)
-	{
-		console.log(response)
-		switch(response)
+		if(status == "success")
 		{
-			/*
-			* @TODO: move to server, server will load view
-			*/
-			/*
-			case 'loginSuccess':
-				window.location = '/xboxWebsite/HTML/homepage.html';
-				//this block loads page from server
-				/*
-				$.post('../PHP/loginDriver.php', {action: 'loadHomepage'},
-					function(response)
+			switch(response)
+			{
+				case 'login_failure':
+					$('#messageCenter').html('Wrong Username or Password!');
+					break;
+				case 'no_results':
+					/*
+					* Display a message
+					*/
+					$('#messageCenter').html('That user can not be found!');
+					/*
+					* Replace button on page
+					*/
+					buttonManager({'action': 'replaceButton'},
 					{
-						document.open("text/html", true);
-						document.write(response);
-						document.close();
+						'idToRemove': 'loginButton',
+						'idToAdd': 'addUserButton',
+						'newValue': 'Sign Me Up!'
 					});
-				*/
-				//break;
-			case 'login_failure':
-				$('#messageCenter').html('Wrong Username or Password!');
-				break;
-			case 'no_results':
-				/*
-				* Display a message
-				*/
-				$('#messageCenter').html('That user can not be found!');
-				/*
-				* Replace button on page
-				*/
-				buttonManager({'action': 'replaceButton'},
-				{
-					'idToRemove': 'loginButton',
-					'idToAdd': 'addUserButton',
-					'newValue': 'Sign Me Up!'
-				});
-				//set the hover events for button
-				buttonManager({'action': 'setHoverListener'}, {'id': 'addUserButton'});
-				//set up click listener
-				buttonManager({'action': 'setClickListener'}, {'id': 'addUserButton', 'function': 'addUser'});
-				break;
+					/*
+					* Set the hover events for button
+					*/
+					buttonManager({'action': 'setHoverListener'}, {'id': 'addUserButton'});
+					/*
+					* Set up click listener
+					*/
+					buttonManager({'action': 'setClickListener'}, {'id': 'addUserButton', 'function': 'addUser'});
+					break;
+				default:
+					/*
+					* Default case is to treat response as new page
+					*/
+					$('html').html(response);
+					break;
+
+			}
+		}
+		else
+		{
+			console.log("server or request error!");
 		}
 	});
 }
 
 function addUser()
 {
-	$.post(window.location.href+"index.php/login/addUser",
-	{
-		'username': $('#username').val(),
-		'password': $('#password').val()
-	},
+	$.post(window.location.href+"index.php/login/addUser", $("form").serialize(),
 		function(response)
 		{
 			console.log(response)

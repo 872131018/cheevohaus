@@ -21,10 +21,13 @@
 				<div class='row'>
 					<div id='inputDiv'>
 						<div class='row well'>
-							<label for='username'>Username: </label>
-							<input type='text' name='username' id='username' class='form-control'>
-							<label for='password'>Password: </label>
-							<input type='password' name='password' id='password' class='form-control'>
+							<form name="loginForm" action="#" method="POST">
+								<label for='username'>Username: </label>
+									<input type='text' name='username' id='username' class='form-control'>
+								<label for='password'>Password: </label>
+									<input type='password' name='password' id='password' class='form-control'>
+								<input type="button" id="loginButton" value="Get Gamertag!" class="btn">
+							</form>
 						</div>
 						<div class='row'>
 							<div id='gamerDashboard' class='btn-group-vertical well'>Turn this into the wall!</div>

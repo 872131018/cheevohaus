@@ -16,6 +16,42 @@ class User_factory
     */
     $this->_ci->load->model("user_model");
   }
+  /*
+  * Interrogate the username to determine if the password is correct
+  */
+  public function checkUser($username="", $password="")
+	{
+    /*
+    * Query database for  a single username and prepare result object
+    */
+    $this->_ci->db->select('username, password');
+    $result = $this->_ci->db->get_where('registeredUsers', array('username' => $username), 1)->result();
+    $result = $result[0];
+    if(!empty($result))
+    {
+      /*
+      * Interrogate the username to determine if the password is correct
+      */
+			if($username == $result->username)
+			{
+				if(hash("sha256", $password) == $result->password)
+				{
+					return 'success';
+				}
+        else
+        {
+          return 'failure';
+        }
+			}
+    }
+    else
+    {
+      /*
+      * @TODO: consider making this its own view and gather more information
+      */
+      return 'empty';
+    }
+	}
 	/*
 	*Commit email to the database
 	*@param email passed from url to controller
