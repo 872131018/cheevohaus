@@ -18,7 +18,7 @@ class Home extends CI_Controller
     */
     $gamertag = $this->input->post("gamertag");
     /*
-    * Query database for  a single gamertag and prepare result object
+    * Query database for  a single gamertag to determine action
     */
     $this->db->select('xuid, gamertag');
     $result = $this->db->get_where('validGamertags', array('gamertag' => $gamertag), 1)->result();
