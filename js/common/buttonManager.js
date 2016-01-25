@@ -82,7 +82,7 @@ function buttonManager(actionObject, dataObject)
 				}
 				else
 				{
-					window[dataObject['function']](dataObject['xuid']);
+					window[dataObject['function']]();
 					//checkLogin();
 				}
 			});

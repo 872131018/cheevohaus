@@ -32,7 +32,7 @@ class Curl_factory
 		$result = curl_exec($this->_curl);
 		if($result === FALSE)
 		{
-  			return 'cURL Error: '.curl_error($this->_curl);
+  			return curl_error($this->_curl);
 		}
 		else
 		{

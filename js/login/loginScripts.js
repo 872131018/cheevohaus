@@ -3,7 +3,7 @@ function checkLogin()
 	/*
 	* Send the login to the server to validation
 	*/
-	$.post(window.location.href+"/login/index", $("form").serialize(),
+	$.post(window.location.href+"index.php/login/index", $("form").serialize(),
 	function(response, status)
 	{
 		if(status == "success")

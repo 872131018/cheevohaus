@@ -23,8 +23,8 @@
 						<div class='row well'>
 							<form name="gamertagForm" action="#" method="POST">
 								<label for='gamertagInput'>Gamertag: </label>
-									<input type='text' name='gamertag' id='gamertag'>
-									<input type="button" id="loginButton" value="Get Gamertag!" class="btn">
+								<input type='text' name='gamertag' id='gamertag'>
+								<input type="button" id="loginButton" value="Get Gamertag!" class="btn">
 							</form>
 						</div>
 						<div class='row'>

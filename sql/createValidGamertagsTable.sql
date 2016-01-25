@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS cheevohaus.validGamertags
 (
-	xuid VARCHAR(20),
-	gamertag VARCHAR(24),
-	PRIMARY KEY(xuid)
+	id int NOT NULL AUTO_INCREMENT,
+	xuid VARCHAR(64),
+	gamertag VARCHAR(64),
+	PRIMARY KEY(id)
 );

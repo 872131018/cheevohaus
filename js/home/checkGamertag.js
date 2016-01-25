@@ -1,20 +1,17 @@
 function checkGamertag()
 {
 	/*
-	* Send the gamertag to the server to validation
+	* Send the gamertag to the server to for validation
 	*/
-	$.post(window.location.href+"/home/index", $("form").serialize(),
+	$.post(window.location.href+"index.php/home/index", $("form").serialize(),
 		function(response, status)
 		{
 			if(status == "success")
 			{
 				console.log(response)
-				var resultArray = response.split('>');
-				var result = resultArray[0];
-				var curlResponse = resultArray[1];
-				console.log(resultArray);
-				if(result == 'noGamertag')
+				if(response.xuid == '')
 				{
+					/*
 					$('#messageCenter').html("\
 						<span>That gamertag couldn't be found!</span><br>\
 						<span>Do you want to add this gamertag to account?</span>\
@@ -26,34 +23,38 @@ function checkGamertag()
 					buttonManager({'action': 'setClickListener'}, {'id': 'addGamertagButton',
 																	'function': 'addGamertagToAccount',
 																	'xuid': curlResponse});
-				}
-				else if(result == 'foundGamertag')
-				{
-					//update the message center
-					$('#messageCenter').html("\
-						<span>That gamertag has been found!</span><br>\
-						<span>What would you like to do?</span>\
-					");
-					//var returnedXuid = curlResponse;
-					tabCollection = $('#leftColumn').children().each(
-						function()
-						{
-							buttonManager(
-							{
-								'action': 'addClickListener'
-							},
-							{
-								'id': $(this).attr('id'),
-								'function': 'retrieve'+$(this).text().replace(/ /g,''),
-								'xuid': curlResponse
-							});
-						}
-					);
-					$('#leftColumn').removeClass('disabled');
+					*/
 				}
 				else
 				{
-					alert(result);
+					/*
+					* Update the message center with a status
+					*/
+					$('#messageCenter').html("<span>What would you like to do?</span>");
+					/*
+					* Hidden field to hold the xuid once its available
+					*/
+					$("form").append("<input type='hidden' name='xuid' id='xuid' value='"+response.xuid+"'>");
+					/*
+					* Iterate each of the action tabs and set map
+					*/
+					$('#leftColumn').children().each(
+						function()
+						{
+							/*
+							* Add a click listener to each of the action tabs
+							*/
+							buttonManager({'action': 'addClickListener'},
+							{
+								'id': $(this).attr('id'),
+								'function': 'retrieve'+$(this).text().replace(/ /g,'')
+							});
+						}
+					);
+					/*
+					* Expose action tabs so they may be used
+					*/
+					$('#leftColumn').removeClass('disabled');
 				}
 			}
 			else

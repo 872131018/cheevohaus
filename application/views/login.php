@@ -26,7 +26,7 @@
 									<input type='text' name='username' id='username' class='form-control'>
 								<label for='password'>Password: </label>
 									<input type='password' name='password' id='password' class='form-control'>
-								<input type="button" id="loginButton" value="Get Gamertag!" class="btn">
+								<input type="button" id="loginButton" value="Log In!" class="btn">
 							</form>
 						</div>
 						<div class='row'>

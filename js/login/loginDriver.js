@@ -11,5 +11,9 @@ $(document).ready()
 	/*
 	* Set up click listener
 	*/
-	buttonManager({'action': 'setClickListener'}, {'id': 'loginButton', 'function': 'checkLogin'});
+	buttonManager({'action': 'setClickListener'},
+	{
+		'id': 'loginButton',
+		'function': 'checkLogin'
+	});
 }
