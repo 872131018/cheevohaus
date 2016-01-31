@@ -11,30 +11,20 @@ function checkGamertag()
 				console.log(response)
 				if(response.xuid == '')
 				{
-					/*
-					$('#messageCenter').html("\
-						<span>That gamertag couldn't be found!</span><br>\
-						<span>Do you want to add this gamertag to account?</span>\
-					");
-					buttonManager({'action': 'replaceButton'}, {'idToRemove': 'loginButton',
-																'idToAdd': 'addGamertagButton',
-																'newValue': 'Validate Gamertag!'});
-					buttonManager({'action': 'setHoverListener'}, {'id': 'addGamertagButton'});
-					buttonManager({'action': 'setClickListener'}, {'id': 'addGamertagButton',
-																	'function': 'addGamertagToAccount',
-																	'xuid': curlResponse});
-					*/
+					//stuff to do here
 				}
 				else
 				{
 					/*
 					* Update the message center with a status
 					*/
-					$('#messageCenter').html("<span>What would you like to do?</span>");
+					var $message = $("<span>What would you like to do?</span>");
+					$('#messageCenter').append($message);
 					/*
 					* Hidden field to hold the xuid once its available
 					*/
-					$("form").append("<input type='hidden' name='xuid' id='xuid' value='"+response.xuid+"'>");
+					var $xuid = $("<input type='hidden' name='xuid' id='xuid' value='"+response.xuid+"'>");
+					$("form").append($xuid);
 					/*
 					* Iterate each of the action tabs and set map
 					*/
@@ -51,10 +41,6 @@ function checkGamertag()
 							});
 						}
 					);
-					/*
-					* Expose action tabs so they may be used
-					*/
-					$('#leftColumn').removeClass('disabled');
 				}
 			}
 			else

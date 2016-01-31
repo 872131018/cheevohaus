@@ -2,16 +2,6 @@ function buttonManager(actionObject, dataObject)
 {
 	switch(actionObject['action'])
 	{
-		case 'init':
-			for(currentTab in dataObject)
-			{
-				accordionTab = '<h3>'+dataObject[currentTab]+'</h3>';
-				accordionTab += '<div id='+currentTab+'></div>';
-				$('#leftColumn').append(accordionTab);
-			}
-			//set the accordian containers
-			$('.accordion').accordion({'heightStyle': 'content', 'collapsible': true, active: false});
-			break;
 		case 'setHoverListener':
 			//set hover listener for element in dataObject
 			$('#'+dataObject['id']).on('mouseenter', function()

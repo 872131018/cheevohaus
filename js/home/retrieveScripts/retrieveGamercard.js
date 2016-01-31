@@ -1,129 +1,108 @@
-function retrieveGamercard(passedXUID)
+function retrieveGamercard()
 {
-	$.get('/xboxWebsite/PHP/homepage/homepageDriver.php', 
+	/*
+	* Get profile information from given xuid
+	*/
+	$.post(window.location.href+"index.php/gamercard/index", $("form").serialize(),
+		function(response, status)
 		{
-			'xuid': passedXUID,
-			'action': 'getGamercard'
-		}, 
-		function(response)
-		{
-			//if get ok build profile table and show it
-			var resultArray = response.split('>');
-			var result = resultArray[0];
-			var curlResponse = resultArray[1];
-			console.log(resultArray);
-			if(result == 'insertedGamercard')
+			if(status == "success")
 			{
-				$('#messageCenter').html("\
-					<span>We couldn't find your gamercard, so we added it!</span><br>\
-					<span>Do you want to display your gamercard now?</span>\
-				");
-
-				//return the value of the gamercard as JSON
-				//var returnedGamercard = curlResponse;
-				buttonManager({'action': 'setClickListener'}, {'id': 'gamercardButton', 
-															 'function': 'displayGamercard',
-															 'gamercard': curlResponse});
-			}
-			else if(result == 'updatedGamercard')
-			{
-				$('#messageCenter').html("\
-					<span>Great! Your gamercard has been updated!</span><br>\
-					<span>Do you want to display your gamercard now?</span>\
-				");
-				displayGamercard(curlResponse);
+				console.log(response)
+				if(response.gamertag == '')
+				{
+					//stuff to do here
+				}
+				else
+				{
+					/*
+					* Update the message center with a status
+					*/
+					var $message = $("<span>Great! Your gamercard has been updated!</span>");
+					$('#messageCenter').append($message);
+					/*
+					* Fill gamercard tab contents from response
+					*/
+					var $table = $('<table class="table table-hover"></table>');
+					/*
+					* Iterate through gamercard properties
+					*/
+					for(var property in response)
+					{
+						/*
+						* Ignore empty or false responses
+						*/
+						if(response[property] == null || response[property] == false)
+						{
+							continue;
+						}
+						/*
+						* Save get the value of each property
+						*/
+						var property_value = response[property];
+						/*
+						* Create the row to add to the table
+						*/
+						var $row = $('<tr id='+property+'></tr>');
+						/*
+						* Each row will have a cell that displays the property
+						*/
+						var $cell = $('<td>'+property+'</td>');
+						$row.append($cell);
+						/*
+						* Corner case properties get handled here
+						*/
+						switch(property)
+						{
+							case "avatarBodyImagePath":
+							case "avatarManifest":
+							case "gamerpicLargeImagePath":
+							case "gamerpicLargeSslImagePath":
+							case "gamerpicSmallImagePath":
+								/*
+								* Value is a url to an image
+								*/
+								$cell = $('<img height="150" width="150" src='+property_value+'>');
+								$row.append($cell);
+								/*
+								* Add the completed row to the table
+								*/
+								$table.append($row)
+								break;
+							case "PreferredColor":
+								/*
+								* Color is json object TODO
+								*/
+								break;
+							default:
+								/*
+								* By default display the value in a cell
+								*/
+								$cell = $('<td>'+property_value+'</td>');
+								$row.append($cell);
+								/*
+								* Add the completed row to the table
+								*/
+								$table.append($row)
+								break;
+						}
+					}
+					$('#gamercard').append($table);
+					/*
+					* Hide sections of the profile that dont need to be displayed
+					*/
+					$("#id").hide();
+					$('#gamerpicSmallImagePath').hide();
+					$('#gamerpicLargeImagePath').hide();
+					$('#gamerpicSmallSslImagePath').hide();
+					$('#gamerpicLargeSslImagePath').hide();
+					$('#avatarManifest').hide();
+				}
 			}
 			else
 			{
-				alert(result);
+				console.log("server or request error!");
 			}
 		}
 	);
-}
-
-function displayGamercard(passedGamercard)
-{
-	$('#gamercard').html('<table class="table table-striped table-condensed">'+gamercardToTable(passedGamercard)+'</table>');
-
-	//clean up sections you don't want to display
-	$('.gamerpicSmallImagePathrow').hide();
-	$('.gamerpicLargeImagePathrow').hide();
-	$('.gamerpicSmallSslImagePathrow').hide();
-	$('.gamerpicLargeSslImagePathrow').hide();
-	$('.avatarManifestrow').hide();
-
-	//reset the striping
-	$('#gamercard').removeClass('table-striped');
-	$('#gamercard').addClass('table-striped');
-}
-
-function gamercardToTable(passedGamercard)
-{
-	var returnTable = '';
-	var gamercardObject = $.parseJSON(passedGamercard);
-	for(currentProperty in gamercardObject)
-	{
-		//if current row empty skip it
-		if(gamercardObject[currentProperty] == null || gamercardObject[currentProperty] == false)
-		{
-			continue;
-		}
-
-		//some of the data might be from source
-		var objectProperty = gamercardObject[currentProperty].toString();
-		var isHttp = objectProperty.slice(0,4);
-		if(isHttp == 'http')
-		{
-			var isJson = objectProperty.slice(objectProperty.length - 4, objectProperty.length);
-			if(isJson == 'json')
-			{
-				//set up a container to fill after ajax
-				returnTable += '<tr class='+currentProperty+'row>\
-									<td id=primaryColor>Primary</td>\
-									<td id=secondaryColor>Secondary</td>\
-									<td id=tertiaryColor>Tertiary</td>\
-		               			</tr>';
-			    //server will figure out the colors
-				$.get('xboxWebsite/PHP/homepage/homepageDriver.php', 
-					{
-						'url': objectProperty,
-						'action': 'lookupColor'
-					}, 
-					function(response)
-					{
-						var resultArray = response.split('>');
-						var result = resultArray[0];
-						var curlResponse = resultArray[1];
-						var colorObject = $.parseJSON(curlResponse);
-						$('#primaryColor').css('background-color', '#'+colorObject['primaryColor']);
-						$('#secondaryColor').css('background-color', '#'+colorObject['secondaryColor']);
-						$('#tertiaryColor').css('background-color', '#'+colorObject['tertiaryColor']);
-					}
-				);
-			}
-			else
-			{
-				returnTable += '<tr class='+currentProperty+'row>\
-									<td id='+currentProperty+'>\
-										'+currentProperty+'\
-									</td>\
-									<td id='+gamercardObject[currentProperty]+'>\
-										<img src='+gamercardObject[currentProperty]+' width="64" height="64">\
-									</td>\
-			               		</tr>';
-			}
-		}
-		else
-		{
-			returnTable += '<tr class='+currentProperty+'row>\
-								<td id='+currentProperty+'>\
-									'+currentProperty+'\
-								</td>\
-								<td id='+gamercardObject[currentProperty]+'>\
-									'+gamercardObject[currentProperty]+'\
-					            </td>\
-				            </tr>';
-		}
-	}
-	return returnTable;
 }

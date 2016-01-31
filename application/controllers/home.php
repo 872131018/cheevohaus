@@ -76,42 +76,4 @@ class Home extends CI_Controller
 			$this->curl_factory->closeConnection();
     }
 	}
-
-  public function addUser()
-  {
-    /*
-    *The factory is where you put the models to work and manages them
-    */
-    $this->load->library("user_factory");
-    /*
-    * Get username and password from $_POST
-    */
-    $username = $this->input->post("username");
-    $password = $this->input->post("password");
-    /*
-    * Query the database for usernames to check for availability
-    */
-    $this->db->select('username');
-    $query = $this->db->get_where('registeredUsers', array('username' => $username), 1);
-    /*
-    * The username must be available for it to be taken
-    */
-    if(empty($query->result()))
-    {
-      $result = $this->user_factory->saveUser($username, $password);
-      //$data = array("result" => $result);
-      /*
-      * true seems to get thrown around as 1
-      */
-      if($result === 1 || $result === true)
-      {
-          echo $result;
-      }
-    }
-    else
-    {
-      die('username taken');
-    }
-    die;
-  }
 }

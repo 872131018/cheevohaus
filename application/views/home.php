@@ -10,7 +10,7 @@
 	</head>
 	<body class='text-center text-primary'>
 		<div class='container'>
-			<div id='leftColumn' class='col-xs-4 well accordion disabled'></div>
+			<div id='leftColumn' class='col-xs-4 well accordion'></div>
 			<div id='middleColumn' class='col-xs-4'>
 				<div class='row'>
 					<h1>Enter a Gamertag!</h1>
