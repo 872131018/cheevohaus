@@ -39,14 +39,12 @@ function checkGamertag()
 								'id': $(this).attr('id'),
 								'function': 'retrieve'+$(this).text().replace(/ /g,'')
 							});
-						}
-					);
+						});
 				}
 			}
 			else
 			{
 				console.log("server or request error!");
 			}
-		}
-	);
+		});
 }

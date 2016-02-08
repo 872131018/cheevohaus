@@ -69,11 +69,6 @@ function retrieveGamercard()
 								*/
 								$table.append($row)
 								break;
-							case "PreferredColor":
-								/*
-								* Color is json object TODO
-								*/
-								break;
 							default:
 								/*
 								* By default display the value in a cell

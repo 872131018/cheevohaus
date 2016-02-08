@@ -24,20 +24,20 @@ class Gamercard_factory
   public function toJSON($gamercard_model)
   {
     $data = array(
-      'id' => $gamercard_model->getId,
-    	'gamertag' => $gamercard_model->getGamertag,
-    	'name' => $gamercard_model->getName,
-    	'location' => $gamercard_model->getLocation,
-    	'bio' => $gamercard_model->getBio,
-    	'gamerscore' => $gamercard_model->getGamerscore,
-    	'tier' => $gamercard_model->getTier,
-    	'motto' => $gamercard_model->getMotto,
-    	'avatarBodyImagePath' => $gamercard_model->getAvatarBodyImagePath,
-    	'gamerpicSmallImagePath' => $gamercard_model->getGamerpicSmallImagePath,
-    	'gamerpicLargeImagePath' => $gamercard_model->getGamerpicLargeImagePath,
-    	'gamerpicSmallSslImagePath' => $gamercard_model->getGamerpicSmallSslImagePath,
-    	'gamerpicLargeSslImagePath' => $gamercard_model->getGamerpicLargeSslImagePath,
-    	'avatarManifest' => $gamercard_model->getAvatarManifest
+      'id' => $gamercard_model->getId(),
+    	'gamertag' => $gamercard_model->getGamertag(),
+    	'name' => $gamercard_model->getName(),
+    	'location' => $gamercard_model->getLocation(),
+    	'bio' => $gamercard_model->getBio(),
+    	'gamerscore' => $gamercard_model->getGamerscore(),
+    	'tier' => $gamercard_model->getTier(),
+    	'motto' => $gamercard_model->getMotto(),
+    	'avatarBodyImagePath' => $gamercard_model->getAvatarBodyImagePath(),
+    	'gamerpicSmallImagePath' => $gamercard_model->getGamerpicSmallImagePath(),
+    	'gamerpicLargeImagePath' => $gamercard_model->getGamerpicLargeImagePath(),
+    	'gamerpicSmallSslImagePath' => $gamercard_model->getGamerpicSmallSslImagePath(),
+    	'gamerpicLargeSslImagePath' => $gamercard_model->getGamerpicLargeSslImagePath(),
+    	'avatarManifest' => $gamercard_model->getAvatarManifest()
     );
     return json_encode($data);
   }

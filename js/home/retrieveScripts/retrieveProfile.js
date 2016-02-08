@@ -68,7 +68,7 @@ function retrieveProfile()
 								break;
 							case "PreferredColor":
 								/*
-								* Color is json object TODO
+								* Ask server to get data
 								*/
 								break;
 							default:
@@ -102,14 +102,10 @@ function retrieveProfile()
 			{
 				console.log("server or request error!");
 			}
-		}
-	);
+		});
 }
 
-
 /*
-	if(isJson == 'json')
-	{
 		//set up a container to fill after ajax
 		returnTable += '<tr class='+currentProperty+'Row>\
 							<td id=primaryColor>Primary</td>\

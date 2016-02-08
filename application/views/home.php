@@ -42,7 +42,6 @@
 		<script type="text/javascript" src="js/common/buttonManager.js"></script>
 		<script type="text/javascript" src="js/wrappers/jqueryUIWrapper.js"></script>
 		<script type="text/javascript" src="js/home/checkGamertag.js"></script>
-		<script type="text/javascript" src="js/home/addGamertagToAccount.js"></script>
 		<script type="text/javascript" src="js/home/retrieveScripts/retrieveProfile.js"></script>
 		<script type="text/javascript" src="js/home/retrieveScripts/retrieveGamercard.js"></script>
 		<script type="text/javascript" src="js/home/retrieveScripts/retrievePresence.js"></script>
