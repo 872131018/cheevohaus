@@ -43,7 +43,7 @@
 		<div class="row">
 			<div class="one-half column" style="margin-top: 25%">
 				<h1>Enter Credentials</h1>
-				<p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+				<p>Sign in and start boosting!</p>
 				<div class='row well'>
 					<form name="loginForm" action="#" method="POST">
 						<label for='username'>Username: </label>
@@ -68,7 +68,6 @@
 	<?php /*
 	* Then load the internal sources second
 	*/ ?>
-	<script type="text/javascript" src="js/wrappers/jqueryUIWrapper.js"></script>
 	<script type="text/javascript" src="js/common/buttonManager.js"></script>
 	<script type="text/javascript" src="js/login/loginScripts.js"></script>
 	<?php /*

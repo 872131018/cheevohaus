@@ -1,10 +1,116 @@
+function retrieveRecentActivity()
+{
+	/*
+	* Get profile information from given xuid
+	*/
+	$.post(window.location.href+"index.php/recentActivity/index", $("form").serialize(),
+		function(response, status)
+		{
+			if(status == "success")
+			{
+				console.log(response)
+				/*
+				* Response should be an array of friends
+				*/
+				if(typeof response != 'object')
+				{
+					//stuff to do here
+				}
+				else
+				{
+					/*
+					* Update the message center with a status
+					*/
+					var $message = $("<span>Great! Your friends has been updated!</span>");
+					$('#messageCenter').append($message);
+					/*
+					* Fill gamercard tab contents from response
+					*/
+					var $table = $('<table class="table table-hover"></table>');
+					for(var friend in response)
+					{
+						friend = response[friend];
+						/*
+						* Iterate through friend properties
+						*/
+						for(var property in friend)
+						{
+							/*
+							* Ignore empty or false responses
+							*/
+							if(friend[property] == null || friend[property] == false)
+							{
+								continue;
+							}
+							/*
+							* Save get the value of each property
+							*/
+							var property_value = friend[property];
+							/*
+							* Create the row to add to the table
+							*/
+							var $row = $('<tr id='+property+'></tr>');
+							/*
+							* Each row will have a cell that displays the property
+							*/
+							var $cell = $('<td>'+property+'</td>');
+							$row.append($cell);
+							/*
+							* Corner case properties get handled here
+							*/
+							switch(property)
+							{
+								default:
+									/*
+									* By default display the value in a cell
+									*/
+									$cell = $('<td>'+property_value+'</td>');
+									$row.append($cell);
+									/*
+									* Add the completed row to the table
+									*/
+									$table.append($row)
+									break;
+							}
+						}
+					}
+					$('#friends').append($table);
+					/*
+					* Hide sections of the profile that dont need to be displayed
+					*/
+					$('#id').hide();
+					$('#GameDisplayName').hide();
+					$('#AppDisplayPicRaw').hide();
+					$('#AppDisplayName').hide();
+				}
+			}
+			else
+			{
+				console.log("server or request error!");
+			}
+		});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 function retrieveRecentActivity(passedXUID)
 {
-	$.get('/xboxWebsite/PHP/homepage/homepageDriver.php', 
+	$.get('/xboxWebsite/PHP/homepage/homepageDriver.php',
 		{
 			'xuid': passedXUID,
 			'action': 'getRecentActivity'
-		}, 
+		},
 		function(response)
 		{
 			//if get ok build profile table and show it
@@ -40,7 +146,7 @@ function displayRecentActivity(passedRecentActivity, passedXUID)
 		buttonManager(
 		{
 			'action': 'addClickListener'
-		}, 
+		},
 		{
 			'id': recentActivityObject[currentActivity]['contentTitle'].replace(/\W/g, ''),
 			'function': 'retrieveAchievements',
@@ -124,3 +230,4 @@ function recentActivityToAccordion(passedRecentActivity)
 	}
 	return returnAccordion;
 }
+*/

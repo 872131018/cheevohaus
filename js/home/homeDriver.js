@@ -1,10 +1,6 @@
 $(document).ready()
 {
 	/*
-	* Setup the fade in background
-	*/
-	jqueryUIWrapper({'action': 'fadeToGreen'}, {'element': '.container'});
-	/*
 	* Define the buttons that will be in accordion
 	*/
 	var accordion = {
