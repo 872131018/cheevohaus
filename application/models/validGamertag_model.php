@@ -6,9 +6,9 @@ class validGamertag_model extends CI_Model
 	/*
   * A private variable to represent each column in the database
   */
-  private $_id;
-  private $_xuid;
-  private $_gamertag;
+  var $id;
+  var $xuid;
+  var $gamertag;
 
   function __construct()
   {
@@ -28,20 +28,20 @@ class validGamertag_model extends CI_Model
 		*TODO: try to pass the query $this to remove need for an array
 		*/
     $fields = array(
-      'id' => $this->_id,
-      'xuid' => $this->_xuid,
-			'gamertag' => $this->_gamertag,
+      'id' => $this->id,
+      'xuid' => $this->xuid,
+			'gamertag' => $this->gamertag,
     );
 		/*
 		*If the model has an xuid, then it already exists in the database
 		*Else the model doesn't have an xuid and needs to be inserted
 		*/
-    if(isset($this->_id))
+    if(isset($this->id))
 		{
       /*
       * Generates UPDATE validGamertags SET {$fields} WHERE xuid={$ID}
       */
-      if($this->db->update("validGamertags", $fields, array("id" => $this->_id)))
+      if($this->db->update("validGamertags", $fields, array("id" => $this->id)))
 			{
         return true;
       }
@@ -76,32 +76,4 @@ class validGamertag_model extends CI_Model
 		*/
     return false;
   }
-	/*
-  *SET's & GET's
-  *Use functions because the variables are private
-  */
-  public function getId()
-	{
-		return $this->_id;
-	}
-	public function setId($value)
-	{
-		$this->_id = $value;
-	}
-	public function getXuid()
-	{
-		return $this->_xuid;
-	}
-	public function setXuid($value)
-	{
-		$this->_xuid = $value;
-	}
-	public function getGamertag()
-	{
-		return $this->_gamertag;
-	}
-	public function setGamertag($value)
-	{
-		$this->_gamertag = $value;
-	}
 }

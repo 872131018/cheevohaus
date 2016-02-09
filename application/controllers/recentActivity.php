@@ -5,11 +5,11 @@ class RecentActivity extends CI_Controller
 {
 	public function index()
 	{
-		die("here");
     /*
     * Load the models used in the home screen
     */
     $this->load->model('recent_activity_model');
+		die("here");
 		/*
 		* Load the curl connector class and factory
 		*/

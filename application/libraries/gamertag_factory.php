@@ -24,9 +24,9 @@ class Gamertag_factory
   public function toJSON($validGamertag_model)
   {
     $data = array(
-      "id" => $validGamertag_model->getId(),
-      "xuid" => $validGamertag_model->getXuid(),
-      "gamertag" => $validGamertag_model->getGamertag()
+      "id" => $validGamertag_model->id,
+      "xuid" => $validGamertag_model->xuid,
+      "gamertag" => $validGamertag_model->gamertag
     );
     return json_encode($data);
   }

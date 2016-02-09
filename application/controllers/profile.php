@@ -57,23 +57,11 @@ class Profile extends CI_Controller
 				/*
 				* Set model values with resulting information
 				*/
-				$this->profile_model->setXuid($profile->id);
-				$this->profile_model->setHostId($profile->hostId);
-				$this->profile_model->setGamertag($profile->Gamertag);
-				$this->profile_model->setGameDisplayName($profile->GameDisplayName);
-				$this->profile_model->setAppDisplayName($profile->AppDisplayName);
-				$this->profile_model->setGamerscore($profile->Gamerscore);
-				$this->profile_model->setGameDisplayPicRaw($profile->GameDisplayPicRaw);
-				$this->profile_model->setAppDisplayPicRaw($profile->AppDisplayPicRaw);
-				$this->profile_model->setAccountTier($profile->AccountTier);
-				$this->profile_model->setXboxOneRep($profile->XboxOneRep);
-				$this->profile_model->setPreferredColor($profile->PreferredColor);
-				$this->profile_model->setTenureLevel($profile->TenureLevel);
-				$this->profile_model->setIsSponseredUser($profile->isSponsoredUser);
+				$this->profile_model = clone $profile;
 				/*
 				* Commit the model and set ID
 				*/
-				$this->profile_model->setId($this->profile_model->commit());
+				$this->profile_model->id = $this->profile_model->commit();
 				/*
 				* Send the model back as json
 				*/

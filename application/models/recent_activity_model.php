@@ -8,6 +8,32 @@ class Recent_activity_model extends CI_Model
   * @note had to remove  because of batch insert
   */
   var $id;
+	var $startTime;
+	var $endTime;
+	var $sessionDurationInMinutes;
+	var $contentImageUri;
+	var $bingId;
+	var $contentTitle;
+	var $vuiDisplayName;
+	var $platform;
+	var $titleId;
+	var $description;
+	var $date;
+	var $hasUgc;
+	var $activityItemType;
+	var $contentType;
+	var $shortDescription;
+	var $itemText;
+	var $itemImage;
+	var $shareRoot;
+	var $feedItemId;
+	var $itemRoot;
+	var $hasLiked;
+	var $gamertag;
+	var $realName;
+	var $displayName;
+	var $userImageUri;
+	var $userXuid;
 
   function construct()
   {
@@ -28,19 +54,32 @@ class Recent_activity_model extends CI_Model
 		*/
     $fields = array(
       'id' => $this->id,
-    	'xuid' => $this->xuid,
-    	'hostId' => $this->hostId,
-    	'Gamertag' => $this->Gamertag,
-    	'GameDisplayName' => $this->GameDisplayName,
-    	'AppDisplayName' => $this->AppDisplayName,
-    	'Gamerscore' => $this->Gamerscore,
-    	'GameDisplayPicRaw' => $this->GameDisplayPicRaw,
-    	'AppDisplayPicRaw' => $this->AppDisplayPicRaw,
-    	'AccountTier' => $this->AccountTier,
-    	'XboxOneRep' => $this->XboxOneRep,
-    	'PreferredColor' => $this->PreferredColor,
-    	'TenureLevel' => $this->TenureLevel,
-    	'isSponsoredUser' => $this->isSponsoredUser
+    	'startTime' => $this->startTime,
+    	'endTime' => $this->endTime,
+    	'sessionDurationInMinutes' => $this->sessionDurationInMinutes,
+    	'contentImageUri' => $this->contentImageUri,
+    	'bingId' =>$this->bingId,
+    	'contentTitle' => $this->contentTitle,
+    	'vuiDisplayName' => $this->vuiDisplayName,
+    	'platform' => $this->platform,
+    	'titleId' => $this->titleId,
+    	'description' => $this->description,
+    	'date' => $this->date,
+    	'hasUgc' => $this->hasUgc,
+    	'activityItemType' => $this->activityItemType,
+    	'contentType' => $this->contentType,
+    	'shortDescription' => $this->shortDescription,
+    	'itemText' => $this->itemText,
+    	'itemImage' => $this->itemImage,
+    	'shareRoot' => $this->shareRoot,
+    	'feedItemId' => $this->feedItemId,
+    	'itemRoot' => $this->itemRoot,
+    	'hasLiked' => $this->hasLiked,
+    	'gamertag' => $this->gamertag,
+    	'realName' => $this->realName,
+    	'displayName' => $this->displayName,
+    	'userImageUri' => $this->userImageUri,
+    	'userXuid' => $this->userXuid
     );
 		/*
 		*If the model has an xuid, then it already exists in the database
@@ -51,7 +90,7 @@ class Recent_activity_model extends CI_Model
       /*
       * Generates UPDATE validGamertags SET {$fields} WHERE xuid={$ID}
       */
-      if($this->db->update("friends", $fields, array("id" => $this->id)))
+      if($this->db->update("recentActivity", $fields, array("id" => $this->id)))
 			{
         return true;
       }
@@ -67,7 +106,7 @@ class Recent_activity_model extends CI_Model
     }
 		else
 		{
-      if($this->db->insert("friends", $fields))
+      if($this->db->insert("recentActivity", $fields))
 			{
         return $this->db->insertid();
       }
@@ -86,120 +125,4 @@ class Recent_activity_model extends CI_Model
 		*/
     return false;
   }
-	/*
-  *SET's & GET's
-  *Use functions because the variables are private
-  */
-  public function getId()
-	{
-		return $this->id;
-	}
-	public function setId($value)
-	{
-		$this->id = $value;
-	}
-  public function getXuid()
-	{
-		return $this->xuid;
-	}
-	public function setXuid($value)
-	{
-		$this->xuid = $value;
-	}
-  public function getHostId()
-	{
-		return $this->hostId;
-	}
-	public function setHostId($value)
-	{
-		$this->hostId = $value;
-	}
-  public function getGamertag()
-	{
-		return $this->Gamertag;
-	}
-	public function setGamertag($value)
-	{
-		$this->Gamertag = $value;
-	}
-  public function getGameDisplayName()
-	{
-		return $this->GameDisplayName;
-	}
-	public function setGameDisplayName($value)
-	{
-		$this->GameDisplayName = $value;
-	}
-  public function getAppDisplayName()
-	{
-		return $this->AppDisplayName;
-	}
-	public function setAppDisplayName($value)
-	{
-		$this->AppDisplayName = $value;
-	}
-  public function getGamerscore()
-	{
-		return $this->Gamerscore;
-	}
-	public function setGamerscore($value)
-	{
-		$this->Gamerscore = $value;
-	}
-  public function getGameDisplayPicRaw()
-	{
-		return $this->GameDisplayPicRaw;
-	}
-	public function setGameDisplayPicRaw($value)
-	{
-		$this->GameDisplayPicRaw = $value;
-	}
-  public function getAppDisplayPicRaw()
-	{
-		return $this->AppDisplayPicRaw;
-	}
-	public function setAppDisplayPicRaw($value)
-	{
-		$this->AppDisplayPicRaw = $value;
-	}
-  public function getAccountTier()
-	{
-		return $this->AccountTier;
-	}
-	public function setAccountTier($value)
-	{
-		$this->AccountTier = $value;
-	}
-  public function getXboxOneRep()
-	{
-		return $this->XboxOneRep;
-	}
-	public function setXboxOneRep($value)
-	{
-		$this->XboxOneRep = $value;
-	}
-  public function getPreferredColor()
-	{
-		return $this->PreferredColor;
-	}
-	public function setPreferredColor($value)
-	{
-		$this->PreferredColor = $value;
-	}
-  public function getTenureLevel()
-	{
-		return $this->TenureLevel;
-	}
-	public function setTenureLevel($value)
-	{
-		$this->TenureLevel = $value;
-	}
-  public function getIsSponsoredUser()
-	{
-		return $this->isSponsoredUser;
-	}
-	public function setIsSponsoredUser($value)
-	{
-		$this->isSponsoredUser = $value;
-	}
 }

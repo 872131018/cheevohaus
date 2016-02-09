@@ -23,22 +23,6 @@ class Profile_factory
   */
   public function toJSON($profile_model)
   {
-    $data = array(
-      'id' => $profile_model->getId(),
-      'xuid' => $profile_model->getXuid(),
-      'hostId'  => $profile_model->getHostId(),
-      'Gamertag'	=> $profile_model->getGamertag(),
-      'GameDisplayName'	=> $profile_model->getGameDisplayName(),
-      'AppDisplayName'	=> $profile_model->getAppDisplayName(),
-      'Gamerscore'	=> $profile_model->getGamerscore(),
-      'GameDisplayPicRaw'	=> $profile_model->getGameDisplayPicRaw(),
-      'AppDisplayPicRaw'	=> $profile_model->getAppDisplayPicRaw(),
-      'AccountTier'	=> $profile_model->getAccountTier(),
-      'XboxOneRep'	=> $profile_model->getXboxOneRep(),
-      'PreferredColor'	=> $profile_model->getPreferredColor(),
-      'TenureLevel'	=> $profile_model->getTenureLevel(),
-      'isSponsoredUser'	=> $profile_model->getIsSponsoredUser()
-    );
-    return json_encode($data);
+    return json_encode($profile_model);
   }
 }
