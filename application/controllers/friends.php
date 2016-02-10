@@ -47,7 +47,7 @@ class Friends extends CI_Controller
 			if(!empty($curlResponse))
 			{
 				/*
-				* First thing to do is to clear out the table
+				* Clear out the table for the current user
 				*/
 				$this->db->delete('friends', array('id' => $xuid));
 				/*
@@ -66,20 +66,20 @@ class Friends extends CI_Controller
 					/*
 					* Set model values with resulting information
 					*/
-					$this->friend_model->setId($xuid);
-					$this->friend_model->setXuid($friend->id);
-					$this->friend_model->setHostId($friend->hostId);
-					$this->friend_model->setGamertag($friend->Gamertag);
-					$this->friend_model->setGameDisplayName($friend->GameDisplayName);
-					$this->friend_model->setAppDisplayName($friend->AppDisplayName);
-					$this->friend_model->setGamerscore($friend->Gamerscore);
-					$this->friend_model->setGameDisplayPicRaw($friend->GameDisplayPicRaw);
-					$this->friend_model->setAppDisplayPicRaw($friend->AppDisplayPicRaw);
-					$this->friend_model->setAccountTier($friend->AccountTier);
-					$this->friend_model->setXboxOneRep($friend->XboxOneRep);
-					$this->friend_model->setPreferredColor($friend->PreferredColor);
-					$this->friend_model->setTenureLevel($friend->TenureLevel);
-					$this->friend_model->setIsSponsoredUser($friend->isSponsoredUser);
+					$this->friend_model->id = $xuid;
+					$this->friend_model->xuid = $friend->id;
+					$this->friend_model->hostId = $friend->hostId;
+					$this->friend_model->Gamertag = $friend->Gamertag;
+					$this->friend_model->GameDisplayName = $friend->GameDisplayName;
+					$this->friend_model->AppDisplayName = $friend->AppDisplayName;
+					$this->friend_model->Gamerscore = $friend->Gamerscore;
+					$this->friend_model->GameDisplayPicRaw = $friend->GameDisplayPicRaw;
+					$this->friend_model->AppDisplayPicRaw = $friend->AppDisplayPicRaw;
+					$this->friend_model->AccountTier = $friend->AccountTier;
+					$this->friend_model->XboxOneRep = $friend->XboxOneRep;
+					$this->friend_model->PreferredColor = $friend->PreferredColor;
+					$this->friend_model->TenureLevel = $friend->TenureLevel;
+					$this->friend_model->isSponsoredUser = $friend->isSponsoredUser;
 					/*
 					* Push a clone of the model into an array for batch inserting
 					*/
@@ -93,7 +93,7 @@ class Friends extends CI_Controller
 				* Pass the friends response through as json
 				*/
 				$this->output->set_content_type('application/json');
-				$this->output->set_output($friends_to_commit);
+				$this->output->set_output($this->friend_factory->toJSON($this->friend_model));
 			}
 			else
 			{

@@ -74,7 +74,7 @@ class Friend_model extends CI_Model
 				*There was an error with the update retrieve and show error
 				*TODO: handle error properly
 				*/
-				vardump($this->db->error());
+				var_dump($this->db->error());
 				die;
 			}
     }
@@ -90,7 +90,7 @@ class Friend_model extends CI_Model
 				*There was an error with the insert retrieve and show error
 				*TODO: handle error properly
 				*/
-				vardump($this->db->error());
+				var_dump($this->db->error());
 				die;
 			}
     }
@@ -99,120 +99,4 @@ class Friend_model extends CI_Model
 		*/
     return false;
   }
-	/*
-  *SET's & GET's
-  *Use functions because the variables are private
-  */
-  public function getId()
-	{
-		return $this->id;
-	}
-	public function setId($value)
-	{
-		$this->id = $value;
-	}
-  public function getXuid()
-	{
-		return $this->xuid;
-	}
-	public function setXuid($value)
-	{
-		$this->xuid = $value;
-	}
-  public function getHostId()
-	{
-		return $this->hostId;
-	}
-	public function setHostId($value)
-	{
-		$this->hostId = $value;
-	}
-  public function getGamertag()
-	{
-		return $this->Gamertag;
-	}
-	public function setGamertag($value)
-	{
-		$this->Gamertag = $value;
-	}
-  public function getGameDisplayName()
-	{
-		return $this->GameDisplayName;
-	}
-	public function setGameDisplayName($value)
-	{
-		$this->GameDisplayName = $value;
-	}
-  public function getAppDisplayName()
-	{
-		return $this->AppDisplayName;
-	}
-	public function setAppDisplayName($value)
-	{
-		$this->AppDisplayName = $value;
-	}
-  public function getGamerscore()
-	{
-		return $this->Gamerscore;
-	}
-	public function setGamerscore($value)
-	{
-		$this->Gamerscore = $value;
-	}
-  public function getGameDisplayPicRaw()
-	{
-		return $this->GameDisplayPicRaw;
-	}
-	public function setGameDisplayPicRaw($value)
-	{
-		$this->GameDisplayPicRaw = $value;
-	}
-  public function getAppDisplayPicRaw()
-	{
-		return $this->AppDisplayPicRaw;
-	}
-	public function setAppDisplayPicRaw($value)
-	{
-		$this->AppDisplayPicRaw = $value;
-	}
-  public function getAccountTier()
-	{
-		return $this->AccountTier;
-	}
-	public function setAccountTier($value)
-	{
-		$this->AccountTier = $value;
-	}
-  public function getXboxOneRep()
-	{
-		return $this->XboxOneRep;
-	}
-	public function setXboxOneRep($value)
-	{
-		$this->XboxOneRep = $value;
-	}
-  public function getPreferredColor()
-	{
-		return $this->PreferredColor;
-	}
-	public function setPreferredColor($value)
-	{
-		$this->PreferredColor = $value;
-	}
-  public function getTenureLevel()
-	{
-		return $this->TenureLevel;
-	}
-	public function setTenureLevel($value)
-	{
-		$this->TenureLevel = $value;
-	}
-  public function getIsSponsoredUser()
-	{
-		return $this->isSponsoredUser;
-	}
-	public function setIsSponsoredUser($value)
-	{
-		$this->isSponsoredUser = $value;
-	}
 }

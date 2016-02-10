@@ -23,17 +23,6 @@ class Presence_factory
   */
   public function toJSON($presence_model)
   {
-    $data = array(
-      'id' => $presence_model->getId(),
-      'xuid' => $presence_model->getXuid(),
-      'state' => $presence_model->getState(),
-      'deviceType' => $presence_model->getDeviceType(),
-      'titleId' => $presence_model->getTitleId(),
-      'name' => $presence_model->getName(),
-      'placement' => $presence_model->getPlacement(),
-      'stateOfApp' => $presence_model->getStateOfApp(),
-      'lastModified' => $presence_model->getLastModified()
-    );
-    return json_encode($data);
+    return json_encode($presence_model);
   }
 }

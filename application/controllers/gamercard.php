@@ -57,23 +57,17 @@ class Gamercard extends CI_Controller
 				/*
 				* Set model values with resulting information
 				*/
-				$this->gamercard_model->setGamertag($gamercard->gamertag);
-				$this->gamercard_model->setName($gamercard->name);
-				$this->gamercard_model->setLocation($gamercard->location);
-				$this->gamercard_model->setBio($gamercard->bio);
-				$this->gamercard_model->setGamerscore($gamercard->gamerscore);
-				$this->gamercard_model->setTier($gamercard->tier);
-				$this->gamercard_model->setMotto($gamercard->motto);
-				$this->gamercard_model->setAvatarBodyImagePath($gamercard->avatarBodyImagePath);
-				$this->gamercard_model->setGamerpicSmallImagePath($gamercard->gamerpicSmallImagePath);
-				$this->gamercard_model->setGamerpicLargeImagePath($gamercard->gamerpicLargeImagePath);
-				$this->gamercard_model->setGamerpicSmallSslImagePath($gamercard->gamerpicSmallSslImagePath);
-				$this->gamercard_model->SetGamerpicLargeSslImagePath($gamercard->gamerpicLargeSslImagePath);
-				$this->gamercard_model->setAvatarManifest($gamercard->avatarManifest);
+				foreach(get_object_vars($gamercard) as $property => $value)
+				{
+					/*
+					* Set the models values for each property in response
+					*/
+					$this->gamercard_model->{$property} = $value;
+				}
 				/*
 				* Commit the model and set ID
 				*/
-				$this->gamercard_model->setId($this->gamercard_model->commit());
+				$this->gamercard_model->id = $this->gamercard_model->commit();
 				/*
 				* Send the model back as json
 				*/

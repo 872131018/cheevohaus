@@ -9,11 +9,10 @@ class RecentActivity extends CI_Controller
     * Load the models used in the home screen
     */
     $this->load->model('recent_activity_model');
-		die("here");
 		/*
 		* Load the curl connector class and factory
 		*/
-		$this->load->library(array("curl_factory", "friend_factory"));
+		$this->load->library(array("curl_factory", "recent_activity_factory"));
     /*
     * Get gamertag passed from $_POST
     */
@@ -22,7 +21,7 @@ class RecentActivity extends CI_Controller
     /*
     * Query database for a single use xuid to get the friends list
     */
-    $result = $this->db->get_where('friends', array('id' => $xuid))->result();
+    $result = $this->db->get_where('recentActivity', array('id' => $xuid))->result();
     if(!empty($result))
     {
 			/*
@@ -36,7 +35,7 @@ class RecentActivity extends CI_Controller
       /*
       * Profile not found, query Microsoft to determine validity
       */
-			$this->curl_factory->setParameters('https://xboxapi.com/v2/'.$xuid.'/friends');
+			$this->curl_factory->setParameters('https://xboxapi.com/v2/'.$xuid.'/activity/recent');
 			$curlResponse =  $this->curl_factory->makeRequest();
 			/*
 			* Interrogate microsoft response and determine action
@@ -50,51 +49,55 @@ class RecentActivity extends CI_Controller
 				/*
 				* First thing to do is to clear out the table
 				*/
-				$this->db->delete('friends', array('id' => $xuid));
+				$this->db->delete('recentActivity', array('id' => $xuid));
 				/*
 				* Set up variable to hold array of friends to commit
 				*/
-				$friends_to_commit = [];
+				$activity_to_commit = [];
 				/*
 				* Friends should be an array of friend objects
 				*/
-				$friends = $curlResponse;
+				$recent_activity = $curlResponse;
 				/*
 				* Commit each friend to the database
 				*/
-				foreach($friends as $friend)
+				foreach($recent_activity as $activity)
 				{
+					/*
+					* Must add the id for each activity
+					*/
+					$activity->id = $xuid;
 					/*
 					* Set model values with resulting information
 					*/
-					$this->friend_model->setId($xuid);
-					$this->friend_model->setXuid($friend->id);
-					$this->friend_model->setHostId($friend->hostId);
-					$this->friend_model->setGamertag($friend->Gamertag);
-					$this->friend_model->setGameDisplayName($friend->GameDisplayName);
-					$this->friend_model->setAppDisplayName($friend->AppDisplayName);
-					$this->friend_model->setGamerscore($friend->Gamerscore);
-					$this->friend_model->setGameDisplayPicRaw($friend->GameDisplayPicRaw);
-					$this->friend_model->setAppDisplayPicRaw($friend->AppDisplayPicRaw);
-					$this->friend_model->setAccountTier($friend->AccountTier);
-					$this->friend_model->setXboxOneRep($friend->XboxOneRep);
-					$this->friend_model->setPreferredColor($friend->PreferredColor);
-					$this->friend_model->setTenureLevel($friend->TenureLevel);
-					$this->friend_model->setIsSponsoredUser($friend->isSponsoredUser);
+					foreach(get_object_vars($activity) as $property => $value)
+					{
+						/*
+						* Profile returns xuid as id
+						*/
+						if($property == "activity" || $property == "authorInfo")
+						{
+							continue;
+						}
+						/*
+						* Set the models values for each property in response
+						*/
+						$this->recent_activity_model->{$property} = $value;
+					}
 					/*
 					* Push a clone of the model into an array for batch inserting
 					*/
-					array_push($friends_to_commit, clone $this->friend_model);
+					array_push($activity_to_commit, clone $this->recent_activity_model);
 				}
 				/*
 				* Insert the friends all at once for better performance
 				*/
-				$this->db->insert_batch('friends', $friends_to_commit);
+				$this->db->insert_batch('recentActivity', $activity_to_commit);
 				/*
 				* Pass the friends response through as json
 				*/
 				$this->output->set_content_type('application/json');
-				$this->output->set_output($friends_to_commit);
+				$this->output->set_output($this->recent_activity_factory->toJSON($this->recent_activity_model));
 			}
 			else
 			{

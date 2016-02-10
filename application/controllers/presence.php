@@ -48,25 +48,34 @@ class Presence extends CI_Controller
 			/*
 			* Api returns gamertag to use as reference
 			*/
-			if(strtolower($curlResponse->xuid) == strtolower($xuid))
+			if($curlResponse->xuid == $xuid)
 			{
 				/*
 				* Ensure recieved profile is correct
 				*/
 				$presence = $curlResponse;
 				/*
-				* Presence devices could contain a variety of things
+				* Must have an active presence to update
 				*/
 				if(isset($presence->devices) && !empty($presence->devices))
 				{
 					/*
-					* Narrow down the device list to the first one returned
+					* Set values that dont need to be flattened
 					*/
-					$presence->deviceType = $presence->devices[0]->type;
+					$this->presence_model->xuid = $presence->xuid;
+					$this->presence_model->state = $presence->state;
+					/*
+					* Only worry about the first device in list to flatten
+					*/
+					$presence->devices = $presence->devices[0];
+					/*
+					* Set device type of model to flatten response
+					*/
+					$this->presence_model->deviceType = $presence->devices->type;
 					/*
 					* Search for the active title on the device
 					*/
-					foreach($presence->devices[0]->titles as $title)
+					foreach($presence->devices->titles as $title)
 					{
 						/*
 						* Active state and is running in full screen
@@ -76,30 +85,19 @@ class Presence extends CI_Controller
 							/*
 							* Set the model values from the data for a single title
 							*/
-							$presence->titleId = $title->id;
-							$presence->name = $title->name;
-							$presence->placement = $title->placement;
-							$presence->stateOfApp = $title->state;
-							$presence->lastModified = $title->lastModified;
+							$this->presence_model->titleId = $title->id;
+							$this->presence_model->name = $title->name;
+							$this->presence_model->placement = $title->placement;
+							$this->presence_model->stateOfApp = $title->state;
+							$this->presence_model->lastModified = $title->lastModified;
 							break;
 						}
 					}
 				}
 				/*
-				* Set model values with resulting information
-				*/
-				$this->presence_model->setXuid($presence->xuid);
-				$this->presence_model->setState($presence->state);
-				$this->presence_model->setDeviceType($presence->deviceType);
-				$this->presence_model->setTitleId($presence->titleId);
-				$this->presence_model->setName($presence->name);
-				$this->presence_model->setPlacement($presence->placement);
-				$this->presence_model->setStateOfApp($presence->stateOfApp);
-				$this->presence_model->setLastModified($presence->lastModified);
-				/*
 				* Commit the model and set ID
 				*/
-				$this->presence_model->setId($this->presence_model->commit());
+				$this->presence_model->id = $this->presence_model->commit();
 				/*
 				* Send the model back as json
 				*/

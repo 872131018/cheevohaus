@@ -57,7 +57,20 @@ class Profile extends CI_Controller
 				/*
 				* Set model values with resulting information
 				*/
-				$this->profile_model = clone $profile;
+				foreach(get_object_vars($profile) as $property => $value)
+				{
+					/*
+					* Profile returns xuid as id
+					*/
+					if($property == "id")
+					{
+						$property = "xuid";
+					}
+					/*
+					* Set the models values for each property in response
+					*/
+					$this->profile_model->{$property} = $value;
+				}
 				/*
 				* Commit the model and set ID
 				*/

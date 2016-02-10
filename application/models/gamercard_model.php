@@ -6,20 +6,20 @@ class Gamercard_model extends CI_Model
 	/*
   * A private variable to represent each column in the database
   */
-  var $_id;
-	var $_gamertag;
-	var $_name;
-	var $_location;
-	var $_bio;
-	var $_gamerscore;
-	var $_tier;
-	var $_motto;
-	var $_avatarBodyImagePath;
-	var $_gamerpicSmallImagePath;
-	var $_gamerpicLargeImagePath;
-	var $_gamerpicSmallSslImagePath;
-	var $_gamerpicLargeSslImagePath;
-	var $_avatarManifest;
+  var $id;
+	var $gamertag;
+	var $name;
+	var $location;
+	var $bio;
+	var $gamerscore;
+	var $tier;
+	var $motto;
+	var $avatarBodyImagePath;
+	var $gamerpicSmallImagePath;
+	var $gamerpicLargeImagePath;
+	var $gamerpicSmallSslImagePath;
+	var $gamerpicLargeSslImagePath;
+	var $avatarManifest;
 
   function __construct()
   {
@@ -39,31 +39,31 @@ class Gamercard_model extends CI_Model
 		*TODO: try to pass the query $this to remove need for an array
 		*/
     $fields = array(
-      'id' => $this->_id,
-    	'gamertag' => $this->_gamertag,
-    	'name' => $this->_name,
-    	'location' => $this->_location,
-    	'bio' => $this->_bio,
-    	'gamerscore' => $this->_gamerscore,
-    	'tier' => $this->_tier,
-    	'motto' => $this->_motto,
-    	'avatarBodyImagePath' => $this->_avatarBodyImagePath,
-    	'gamerpicSmallImagePath' => $this->_gamerpicSmallImagePath,
-    	'gamerpicLargeImagePath' => $this->_gamerpicLargeImagePath,
-    	'gamerpicSmallSslImagePath' => $this->_gamerpicSmallSslImagePath,
-    	'gamerpicLargeSslImagePath' => $this->_gamerpicLargeSslImagePath,
-    	'avatarManifest' => $this->_avatarManifest
+      'id' => $this->id,
+    	'gamertag' => $this->gamertag,
+    	'name' => $this->name,
+    	'location' => $this->location,
+    	'bio' => $this->bio,
+    	'gamerscore' => $this->gamerscore,
+    	'tier' => $this->tier,
+    	'motto' => $this->motto,
+    	'avatarBodyImagePath' => $this->avatarBodyImagePath,
+    	'gamerpicSmallImagePath' => $this->gamerpicSmallImagePath,
+    	'gamerpicLargeImagePath' => $this->gamerpicLargeImagePath,
+    	'gamerpicSmallSslImagePath' => $this->gamerpicSmallSslImagePath,
+    	'gamerpicLargeSslImagePath' => $this->gamerpicLargeSslImagePath,
+    	'avatarManifest' => $this->avatarManifest
     );
 		/*
 		*If the model has an xuid, then it already exists in the database
 		*Else the model doesn't have an xuid and needs to be inserted
 		*/
-    if(isset($this->_id))
+    if(isset($this->id))
 		{
       /*
       * Generates UPDATE validGamertags SET {$fields} WHERE xuid={$ID}
       */
-      if($this->db->update("gamercard", $fields, array("id" => $this->_id)))
+      if($this->db->update("gamercard", $fields, array("id" => $this->id)))
 			{
         return true;
       }
@@ -98,120 +98,4 @@ class Gamercard_model extends CI_Model
 		*/
     return false;
   }
-	/*
-  *SET's & GET's
-  *Use functions because the variables are private
-  */
-  public function getId()
-	{
-		return $this->_id;
-	}
-	public function setId($value)
-	{
-		$this->_id = $value;
-	}
-  public function getGamertag()
-	{
-		return $this->_gamertag;
-	}
-	public function setGamertag($value)
-	{
-		$this->_gamertag = $value;
-	}
-  public function getName()
-  {
-    return $this->_name;
-  }
-  public function setName($value)
-	{
-		$this->_name = $value;
-	}
-  public function getLocation()
-  {
-    return $this->_location;
-  }
-  public function setLocation($value)
-	{
-		$this->_location = $value;
-	}
-  public function getBio()
-  {
-    return $this->_bio;
-  }
-  public function setBio($value)
-	{
-		$this->_bio = $value;
-	}
-  public function getGamerscore()
-  {
-    return $this->_gamerscore;
-  }
-  public function setGamerscore($value)
-	{
-		$this->_gamerscore = $value;
-	}
-  public function getTier()
-  {
-    return $this->_tier;
-  }
-  public function setTier($value)
-	{
-		$this->_tier = $value;
-	}
-  public function getMotto()
-  {
-    return $this->_motto;
-  }
-  public function setMotto($value)
-	{
-		$this->_motto = $value;
-	}
-  public function getAvatarBodyImagePath()
-  {
-    return $this->_avatarBodyImagePath;
-  }
-  public function setAvatarBodyImagePath($value)
-	{
-		$this->_avatarBodyImagePath = $value;
-	}
-  public function getGamerpicSmallImagePath()
-  {
-    return $this->_gamerpicSmallImagePath;
-  }
-  public function setGamerpicSmallImagePath($value)
-	{
-		$this->_gamerpicSmallImagePath = $value;
-	}
-  public function getGamerpicLargeImagePath()
-  {
-    return $this->_gamerpicSmallImagePath;
-  }
-  public function setGamerpicLargeImagePath($value)
-	{
-		$this->_gamerpicLargeImagePath = $value;
-	}
-  public function getGamerpicSmallSslImagePath()
-  {
-    return $this->_gamerpicSmallSslImagePath;
-  }
-  public function setGamerpicSmallSslImagePath($value)
-	{
-		$this->_gamerpicLargeSslImagePath = $value;
-	}
-  public function getGamerpicLargeSslImagePath()
-  {
-    return $this->_gamerpicSmallSslImagePath;
-  }
-  public function setGamerpicLargeSslImagePath($value)
-	{
-		$this->_gamerpicLargeSslImagePath = $value;
-	}
-  public function getAvatarManifest()
-  {
-    return $this->_avatarManifest;
-  }
-  public function setAvatarManifest($value)
-	{
-		$this->_avatarManifest = $value;
-	}
 }
