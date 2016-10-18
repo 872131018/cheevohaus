@@ -3,7 +3,8 @@ function retrieveProfile()
 	/*
 	* Get profile information from given xuid
 	*/
-	$.post(window.location.href+"index.php/profile/index", $("form").serialize(),
+	var url = window.location.href+"index.php/profile/index";
+	$.post(url, $("form").serialize(),
 		function(response, status)
 		{
 			if(status == "success")
@@ -19,83 +20,22 @@ function retrieveProfile()
 					* Update the message center with a status
 					*/
 					var $message = $("<span>Great! Your profile has been updated!</span>");
-					$('#messageCenter').append($message);
+					$('#messageCenter').html($message);
 					/*
-					* Fill profile tab contents from response
+					* Set and append gamertag
 					*/
-					var $table = $('<table class="table table-hover"></table>');
+					var $Gamertag = $('<h3>'+response.Gamertag+'</h3>');
+					$('#Gamertag').append($Gamertag);
 					/*
-					* Iterate through profile properties
+					* Set and append profile pic
 					*/
-					for(var property in response)
-					{
-						/*
-						* Ignore empty or false responses
-						*/
-						if(response[property] == null || response[property] == false)
-						{
-							continue;
-						}
-						/*
-						* Save get the value of each property
-						*/
-						var property_value = response[property];
-						/*
-						* Create the row to add to the table
-						*/
-						var $row = $('<tr id='+property+'></tr>');
-						/*
-						* Each row will have a cell that displays the property
-						*/
-						var $cell = $('<td>'+property+'</td>');
-						$row.append($cell);
-						/*
-						* Corner case properties get handled here
-						*/
-						switch(property)
-						{
-							case "AppDisplayPicRaw":
-							case "GameDisplayPicRaw":
-								/*
-								* Value is a url to an image
-								*/
-								$cell = $('<img height="150" width="150" src='+property_value+'>');
-								$row.append($cell);
-								/*
-								* Add the completed row to the table
-								*/
-								$table.append($row)
-								break;
-							case "PreferredColor":
-								/*
-								* Ask server to get data
-								*/
-								break;
-							default:
-								/*
-								* By default display the value in a cell
-								*/
-								$cell = $('<td>'+property_value+'</td>');
-								$row.append($cell);
-								/*
-								* Add the completed row to the table
-								*/
-								$table.append($row)
-								break;
-						}
-					}
-					$('#profile').append($table);
+					var $GameDisplayPicRaw = $('<img height="80" width="80" src='+response.GameDisplayPicRaw+'>');
+					$('#GameDisplayPicRaw').append($GameDisplayPicRaw);
 					/*
-					* Hide sections of the profile that dont need to be displayed
+					* Set and append gamerscore
 					*/
-					$('#id').hide();
-					$('#xuid').hide();
-					$('#GameDisplayName').hide();
-					$('#AppDisplayName').hide();
-					$('#AppDisplayPicRaw').hide();
-					$('#AccountTier').hide();
-					$('#XboxOneRep').hide();
-					$('#TenureLevel').hide();
+					var $Gamerscore = $('<h3>'+response.Gamerscore+'</h3>');
+					$('#Gamerscore').append($Gamerscore);
 				}
 			}
 			else

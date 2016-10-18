@@ -3,7 +3,8 @@ function checkGamertag()
 	/*
 	* Send the gamertag to the server to for validation
 	*/
-	$.post(window.location.href+"index.php/home/index", $("form").serialize(),
+	var url = window.location.href+"index.php/home/index";
+	$.post(url, $("form").serialize(),
 		function(response, status)
 		{
 			if(status == "success")
@@ -26,20 +27,9 @@ function checkGamertag()
 					var $xuid = $("<input type='hidden' name='xuid' id='xuid' value='"+response.xuid+"'>");
 					$("form").append($xuid);
 					/*
-					* Iterate each of the action tabs and set map
+					* Set a delegate identifier for the profile row
 					*/
-					$('#leftColumn').children().each(
-						function()
-						{
-							/*
-							* Add a click listener to each of the action tabs
-							*/
-							buttonManager({'action': 'addClickListener'},
-							{
-								'id': $(this).attr('id'),
-								'function': 'retrieve'+$(this).text().replace(/ /g,'')
-							});
-						});
+					$("#Gamertag").parents(".row").attr("data-delegate", "profile");
 				}
 			}
 			else

@@ -1,3 +1,16 @@
+/*
+* CSS for different sections
+*/
+.silver {
+	background: rgba(181,198,208,1);
+	background: -moz-linear-gradient(top, rgba(181,198,208,1) 0%, rgba(181,198,208,1) 25%, rgba(216,225,231,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(181,198,208,1)), color-stop(25%, rgba(181,198,208,1)), color-stop(100%, rgba(216,225,231,1)));
+	background: -webkit-linear-gradient(top, rgba(181,198,208,1) 0%, rgba(181,198,208,1) 25%, rgba(216,225,231,1) 100%);
+	background: -o-linear-gradient(top, rgba(181,198,208,1) 0%, rgba(181,198,208,1) 25%, rgba(216,225,231,1) 100%);
+	background: -ms-linear-gradient(top, rgba(181,198,208,1) 0%, rgba(181,198,208,1) 25%, rgba(216,225,231,1) 100%);
+	background: linear-gradient(to bottom, rgba(181,198,208,1) 0%, rgba(181,198,208,1) 25%, rgba(216,225,231,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5c6d0', endColorstr='#d8e1e7', GradientType=0 );
+}
 .hover
 {
 	background-color: #000000 !important;

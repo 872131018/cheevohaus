@@ -1,15 +1,13 @@
 $(document).ready()
 {
 	/*
-	* Set the hover events for button
-	*/
-	buttonManager({'action': 'setHoverListener'}, {'id': 'loginButton'});
-	/*
-	* Set up click listener
-	*/
-	buttonManager({'action': 'setClickListener'},
-	{
-		'id': 'loginButton',
-		'function': 'checkLogin'
+  * Delegate all clicks to the document
+  */
+  $(document).on('click', '[id=login]', function(event)
+  {
+		/*
+		* Check the users login when the button is clicked
+		*/
+		checkLogin();
 	});
 }
